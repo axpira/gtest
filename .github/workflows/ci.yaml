@@ -1,0 +1,45 @@
+name: Go
+
+on:
+  push:
+    branches: ["main", "feature/add_ci"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20
+
+      - name: Build
+        run: go mod tidy
+
+      - name: Test
+        run: go test -race -covermode atomic -coverprofile=covprofile ./...
+
+      - name: Install vuln
+        run: go install golang.org/x/vuln/cmd/govulncheck@latest
+      - name: Check vuln
+        run: govulncheck ./...
+
+      - name: Install gosec
+        run: go install github.com/securego/gosec/v2/cmd/gosec@latest
+      - name: Check gosec
+        run: gosec ./...
+
+      - name: Go report card
+        run: curl -X POST -F "repo=github.com/axpira/gt" https://goreportcard.com/checks
+
+      - name: Install goveralls
+        run: go install github.com/mattn/goveralls@v0.0.11
+
+      - name: Send coverage
+        env:
+          COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: goveralls -coverprofile=covprofile -service=github
