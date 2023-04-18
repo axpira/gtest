@@ -17,8 +17,8 @@ jobs:
         with:
           go-version: 1.20
 
-      - name: Build
-        run: go mod tidy
+      # - name: Build
+      #   run: go mod tidy
 
       - name: Test
         run: go test -race -covermode atomic -coverprofile=covprofile ./...
@@ -33,8 +33,8 @@ jobs:
       - name: Check gosec
         run: gosec ./...
 
-      - name: Go report card
-        run: curl -X POST -F "repo=github.com/axpira/gt" https://goreportcard.com/checks
+      # - name: Go report card
+      #   run: curl -X POST -F "repo=github.com/axpira/gt" https://goreportcard.com/checks
 
       - name: Install goveralls
         run: go install github.com/mattn/goveralls@v0.0.11
