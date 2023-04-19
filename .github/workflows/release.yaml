@@ -44,3 +44,6 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update doc
+        run: curl https://proxy.golang.org/github.com/axpira/gt/@v/${GITHUB_REF_NAME}.info
