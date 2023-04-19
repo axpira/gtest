@@ -3,10 +3,10 @@ name: release
 on:
   workflow_run:
     workflows: ["Go"]
-    types: [complete]
+    types: ["complete"]
     push:
       tags:
-        - 'v[0-9]+.[0-9]+.[0-9]+'
+        - "v[0-9]+.[0-9]+.[0-9]+"
   pull_request:
 
 permissions:
