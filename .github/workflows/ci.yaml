@@ -2,7 +2,8 @@ name: Go
 
 on:
   push:
-    branches: ["main", "feature/add_ci"]
+    branches: ["main"]
+    tags: ['*']
   pull_request:
     branches: ["main"]
 
