@@ -3,7 +3,7 @@ name: Go
 on:
   push:
     branches: ["main"]
-    tags: ['*']
+    tags: ["*"]
   pull_request:
     branches: ["main"]
 
@@ -36,12 +36,10 @@ jobs:
 
       # - name: Go report card
       #   run: curl -X POST -F "repo=github.com/axpira/gt" https://goreportcard.com/checks
-
+      #
       # - name: Install goveralls
       #   run: go install github.com/mattn/goveralls@v0.0.11
       # - name: Send coverage
       #   env:
       #     COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: goveralls -coverprofile=covprofile -service=github
-
-        
