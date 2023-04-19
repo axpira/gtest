@@ -26,7 +26,6 @@ type testingT interface {
 }
 
 func ErrorIs(t testingT, prefix string, err, target error, opts ...option) bool {
-	forcing error on ci
 	t.Helper()
 	return newConfig(opts...).ErrorIs(t, prefix, err, target, opts...)
 }
