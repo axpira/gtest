@@ -5,13 +5,9 @@ name: release
 #     tags:
 #       - v[0-9]+.[0-9]+.[0-9]+
 on:
-  workflow_run:
-    workflows: ["CI"]
-    push:
-      tags:
-        - v[0-9]+.[0-9]+.[0-9]+
-    types:
-      - completed
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
 
 permissions:
   contents: write
@@ -45,3 +41,6 @@ jobs:
 
       - name: Update doc
         run: curl https://proxy.golang.org/github.com/axpira/gt/@v/${GITHUB_REF_NAME}.info
+
+      - name: Go report card
+        run: curl -X POST -F "repo=github.com/axpira/gt" https://goreportcard.com/checks
