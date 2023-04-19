@@ -8,7 +8,7 @@ on:
   workflow_run:
     workflows: ["CI"]
     push:
-      tags: 
+      tags:
         - v[0-9]+.[0-9]+.[0-9]+
     types:
       - completed
@@ -25,18 +25,16 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-go@v4
         with:
-          go-version: ">=1.20.1"
+          go-version: "1.20.3"
       - uses: actions/cache@v3
         with:
           path: ~/go/pkg/mod
           key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-      - run: go test ./...
-      # - uses: codecov/codecov-action@v3
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     file: ./coverage.out
+
+      - run: go test -coverprofile=./coverage.out
+
       - uses: goreleaser/goreleaser-action@v4
         if: success() && startsWith(github.ref, 'refs/tags/')
         with:
